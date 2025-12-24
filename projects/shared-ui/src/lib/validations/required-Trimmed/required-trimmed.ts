@@ -1,10 +1,5 @@
 import { Directive } from '@angular/core';
-import {
-  AbstractControl,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator
-} from '@angular/forms';
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
   selector: '[requiredTrimmed]',
@@ -13,12 +8,11 @@ import {
     {
       provide: NG_VALIDATORS,
       useExisting: RequiredTrimmed,
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class RequiredTrimmed implements Validator {
-
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
 

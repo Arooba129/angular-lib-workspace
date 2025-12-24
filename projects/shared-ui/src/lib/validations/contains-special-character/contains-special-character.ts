@@ -13,7 +13,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   ],
 })
 export class ContainsSpecialCharacter implements Validator {
-  // at least one special character
+
   private readonly pattern = /[^A-Za-z0-9]/;
 
   validate(control: AbstractControl): ValidationErrors | null {

@@ -36,8 +36,6 @@ describe('DecimalLimit Directive', () => {
     input = fixture.debugElement.query(By.css('input')).nativeElement;
   });
 
-  /* ---------- INPUT BEHAVIOR TESTS ---------- */
-
   it('should allow valid decimal input', () => {
     input.value = '12.34';
     input.dispatchEvent(new Event('input'));
@@ -58,8 +56,6 @@ describe('DecimalLimit Directive', () => {
 
     expect(input.value).toBe('12.');
   });
-
-  /* ---------- FORM VALIDATOR TESTS ---------- */
 
   it('should mark control valid when within decimal limit', () => {
     component.amount.setValue('12.34');

@@ -30,7 +30,6 @@ describe('EmailCheck Directive', () => {
     input = fixture.debugElement.query(By.css('input')).nativeElement;
   });
 
-  /* ---------- DOM BEHAVIOR TESTS ---------- */
 
   it('should accept a valid email (DOM)', () => {
     input.value = 'test@example.com';

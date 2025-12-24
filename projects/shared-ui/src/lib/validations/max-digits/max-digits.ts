@@ -23,7 +23,6 @@ export class MaxDigits implements Validator {
   onInput(): void {
     let value = this.el.nativeElement.value;
 
-    // remove non-numeric characters
     value = value.replace(/[^0-9]/g, '');
 
     const limit = Number(this.maxDigits);
