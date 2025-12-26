@@ -57,3 +57,101 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+# AngularLibWorkspace
+
+An Angular workspace containing a reusable input validation library designed for modern Angular applications.
+
+The goal of this project is to provide clean, standalone, and production-ready form validators that can be reused across multiple applications without duplicating validation logic.
+
+---
+
+## Shared UI – Input Validation Library
+
+The `shared-ui` library provides a collection of commonly used input validators for Angular reactive and template-driven forms.
+
+This library focuses only on validation logic and intentionally avoids UI concerns.
+
+---
+
+## Features
+
+- Standalone and tree-shakable validators
+- No direct DOM manipulation
+- Fully unit tested
+- Compatible with Angular 15+ standalone APIs
+- Suitable for public and enterprise use
+
+---
+
+## Available Validators
+
+### Text Validators
+- `requiredTrimmed` – invalidates empty or whitespace-only values
+- `alphaOnly` – allows letters only
+- `alphaNumeric` – allows letters and numbers
+
+### Numeric Validators
+- `maxDigits` – limits the total number of digits
+- `decimalLimit` – limits digits after the decimal point
+
+### Email and Phone Validators
+- `emailCheck` – validates email format
+- `phoneNumber` – validates international phone numbers (7–15 digits, optional `+`)
+
+### Password and Security Validators
+- `passwordCheck` – minimum 8 characters, letters and numbers
+- `containsUppercase` – requires at least one uppercase letter
+- `containsLowercase` – requires at least one lowercase letter
+- `containsSpecialCharacter` – requires at least one special character
+- `confirmPassword` – ensures password and confirm password match
+
+### Date Validators
+- `dateRange` – ensures the end date is after or equal to the start date
+
+---
+
+## Usage Example
+
+### Reactive Forms
+
+```ts
+import { FormGroup, FormControl } from '@angular/forms';
+
+this.form = new FormGroup({
+  email: new FormControl(''),
+  password: new FormControl(''),
+  confirmPassword: new FormControl(''),
+});
+
+
+<input formControlName="email" emailCheck />
+<input formControlName="password" passwordCheck />
+<input
+  formControlName="confirmPassword"
+  confirmPassword="password"
+/>
+
+
+<form
+  [formGroup]="form"
+  dateRange
+  dateRangeStart="startDate"
+  dateRangeEnd="endDate"
+>
+  <input type="date" formControlName="startDate" />
+  <input type="date" formControlName="endDate" />
+</form>
+
+
+
+## Run Test Using:
+
+ng test shared-ui
+
+
+## Build the library:
+
+ng build shared-ui
+
