@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { EmailCheck } from './email-check';
 
 @Component({
   standalone: true,
   imports: [ReactiveFormsModule, EmailCheck],
-  template: ` <input type="email" emailCheck [formControl]="email" /> `,
+  template: `<input emailCheck [formControl]="email" />`,
 })
 class TestComponent {
   email = new FormControl('');
@@ -15,7 +14,6 @@ class TestComponent {
 
 describe('EmailCheck Directive', () => {
   let fixture: ComponentFixture<TestComponent>;
-  let input: HTMLInputElement;
   let component: TestComponent;
 
   beforeEach(async () => {
@@ -26,33 +24,16 @@ describe('EmailCheck Directive', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    input = fixture.debugElement.query(By.css('input')).nativeElement;
   });
 
-
-  it('should accept a valid email (DOM)', () => {
-    input.value = 'test@example.com';
-    input.dispatchEvent(new Event('blur'));
-
-    expect(input.validationMessage).toBe('');
-  });
-
-  it('should reject invalid email (DOM)', () => {
-    input.value = 'test@';
-    input.dispatchEvent(new Event('blur'));
-
-    expect(input.validationMessage).toBe('Invalid email address');
-  });
-
-  it('should mark control valid for valid email', () => {
+  it('should allow a valid email', () => {
     component.email.setValue('test@example.com');
 
     expect(component.email.valid).toBe(true);
     expect(component.email.errors).toBeNull();
   });
 
-  it('should mark control invalid for invalid email', () => {
+  it('should reject an invalid email', () => {
     component.email.setValue('test@');
 
     expect(component.email.invalid).toBe(true);
@@ -64,5 +45,12 @@ describe('EmailCheck Directive', () => {
 
     expect(component.email.valid).toBe(true);
     expect(component.email.errors).toBeNull();
+  });
+
+  it('should reject non-string values', () => {
+    component.email.setValue(123 as any);
+
+    expect(component.email.invalid).toBe(true);
+    expect(component.email.errors).toEqual({ emailCheck: true });
   });
 });

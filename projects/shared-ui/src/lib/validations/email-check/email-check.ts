@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, forwardRef } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 
 @Directive({
@@ -7,7 +7,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: EmailCheck,
+      useExisting: forwardRef(() => EmailCheck),
       multi: true,
     },
   ],
@@ -15,35 +15,17 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 export class EmailCheck implements Validator {
   private readonly emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-  constructor(private el: ElementRef<HTMLInputElement>) {}
-
-  @HostListener('blur')
-  onBlur(): void {
-    const value = this.el.nativeElement.value;
-
-    if (!value) {
-      this.el.nativeElement.setCustomValidity('');
-      return;
-    }
-
-    if (!this.emailRegex.test(value)) {
-      this.el.nativeElement.setCustomValidity('Invalid email address');
-    } else {
-      this.el.nativeElement.setCustomValidity('');
-    }
-
-    this.el.nativeElement.reportValidity();
-  }
-
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
 
-    if (!value) return null;
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
 
-    if (!this.emailRegex.test(value)) {
+    if (typeof value !== 'string') {
       return { emailCheck: true };
     }
 
-    return null;
+    return this.emailRegex.test(value) ? null : { emailCheck: true };
   }
 }
