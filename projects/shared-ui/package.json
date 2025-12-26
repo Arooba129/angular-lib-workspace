@@ -1,12 +1,29 @@
 {
-  "name": "shared-ui",
-  "version": "0.0.1",
+  "name": "@aroobajaved/shared-ui",
+  "version": "1.0.0",
+  "description": "Reusable Angular input validation library",
+  "author": "Arooba Javed",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arooba129/angular-lib-workspace.git"
+  },
+  "homepage": "https://github.com/Arooba129/angular-lib-workspace#readme",
+  "bugs": {
+    "url": "https://github.com/Arooba129/angular-lib-workspace/issues"
+  },
+  "keywords": [
+    "angular",
+    "angular-library",
+    "validators",
+    "forms",
+    "input-validation"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "sideEffects": false
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0"
+  }
 }
