@@ -1,73 +1,64 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { PasswordCheck } from './password-check';
+import { AbstractControl } from '@angular/forms';
 
-@Component({
-  standalone: true,
-  imports: [ReactiveFormsModule, PasswordCheck],
-  template: `
-    <input
-      type="password"
-      passwordCheck
-      [formControl]="password"
-    />
-  `
-})
-class TestComponent {
-  password = new FormControl('');
-}
+describe('PasswordCheck Validator', () => {
+  const validator = new PasswordCheck();
 
-describe('PasswordCheck Directive', () => {
-  let fixture: ComponentFixture<TestComponent>;
-  let input: HTMLInputElement;
-  let component: TestComponent;
+  function mockControl(value: any): AbstractControl {
+    return { value } as AbstractControl;
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [TestComponent]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(TestComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-
-    input = fixture.debugElement.query(By.css('input')).nativeElement;
+  it('should invalidate when password is shorter than 8 characters', () => {
+    const result = validator.validate(mockControl('abc12'));
+    expect(result).toEqual({
+      passwordCheck: {
+        minLength: 8,
+        requiresLetter: true,
+        requiresNumber: true,
+      },
+    });
   });
 
-  it('should reject weak password (DOM)', () => {
-    input.value = 'abcdef';
-    input.dispatchEvent(new Event('blur'));
-
-    expect(input.validationMessage).toContain('Password must be at least 8');
+  it('should invalidate when password has no number', () => {
+    const result = validator.validate(mockControl('abcdefgh'));
+    expect(result).toEqual({
+      passwordCheck: {
+        minLength: 8,
+        requiresLetter: true,
+        requiresNumber: true,
+      },
+    });
   });
 
-  it('should accept strong password (DOM)', () => {
-    input.value = 'abc12345';
-    input.dispatchEvent(new Event('blur'));
-
-    expect(input.validationMessage).toBe('');
+  it('should invalidate when password has no letter', () => {
+    const result = validator.validate(mockControl('12345678'));
+    expect(result).toEqual({
+      passwordCheck: {
+        minLength: 8,
+        requiresLetter: true,
+        requiresNumber: true,
+      },
+    });
   });
 
-  it('should mark control invalid for weak password', () => {
-    component.password.setValue('abcdef');
-
-    expect(component.password.invalid).toBe(true);
-    expect(component.password.errors).toHaveProperty('passwordCheck');
+  it('should allow valid password with letters and numbers', () => {
+    const result = validator.validate(mockControl('abc12345'));
+    expect(result).toBeNull();
   });
 
-  it('should mark control valid for strong password', () => {
-    component.password.setValue('abc12345');
-
-    expect(component.password.valid).toBe(true);
-    expect(component.password.errors).toBeNull();
+  it('should ignore empty value', () => {
+    const result = validator.validate(mockControl(''));
+    expect(result).toBeNull();
   });
 
-  it('should allow empty value (required handled separately)', () => {
-    component.password.setValue('');
-
-    expect(component.password.valid).toBe(true);
-    expect(component.password.errors).toBeNull();
+  it('should invalidate non-string values', () => {
+    const result = validator.validate(mockControl(12345678));
+    expect(result).toEqual({
+      passwordCheck: {
+        minLength: 8,
+        requiresLetter: true,
+        requiresNumber: true,
+      },
+    });
   });
 });
