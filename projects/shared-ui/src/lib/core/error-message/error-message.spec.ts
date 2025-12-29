@@ -10,8 +10,8 @@ describe('ERROR_MESSAGES', () => {
     expect(ERROR_MESSAGES['requiredTrimmed']()).toBe('This field cannot be empty');
   });
 
-  it('should return email error message', () => {
-    expect(ERROR_MESSAGES['email']()).toBe('Invalid email address');
+  it('should return emailCheck error message', () => {
+    expect(ERROR_MESSAGES['emailCheck']()).toBe('Invalid email address');
   });
 
   it('should return phoneNumber error message', () => {
@@ -19,11 +19,15 @@ describe('ERROR_MESSAGES', () => {
   });
 
   it('should return alphaOnly error message', () => {
-    expect(ERROR_MESSAGES['alphaOnly']()).toBe('Only alphabetic characters are allowed');
+    expect(ERROR_MESSAGES['alphaOnly']()).toBe(
+      'Only alphabetic characters are allowed'
+    );
   });
 
   it('should return alphaNumeric error message', () => {
-    expect(ERROR_MESSAGES['alphaNumeric']()).toBe('Only alphanumeric characters are allowed');
+    expect(ERROR_MESSAGES['alphaNumeric']()).toBe(
+      'Only alphanumeric characters are allowed'
+    );
   });
 
   it('should return maxDigits error message with required value', () => {
@@ -36,26 +40,26 @@ describe('ERROR_MESSAGES', () => {
     expect(message).toBe('Maximum 2 decimal places allowed');
   });
 
-  it('should return missingLowercase error message', () => {
-    expect(ERROR_MESSAGES['missingLowercase']()).toBe(
+  it('should return containsLowercase error message', () => {
+    expect(ERROR_MESSAGES['containsLowercase']()).toBe(
       'At least one lowercase letter is required'
     );
   });
 
-  it('should return missingUppercase error message', () => {
-    expect(ERROR_MESSAGES['missingUppercase']()).toBe(
+  it('should return containsUppercase error message', () => {
+    expect(ERROR_MESSAGES['containsUppercase']()).toBe(
       'At least one uppercase letter is required'
     );
   });
 
-  it('should return missingSpecialChar error message', () => {
-    expect(ERROR_MESSAGES['missingSpecialChar']()).toBe(
+  it('should return containsSpecialChar error message', () => {
+    expect(ERROR_MESSAGES['containsSpecialChar']()).toBe(
       'At least one special character is required'
     );
   });
 
-  it('should return weakPassword error message', () => {
-    expect(ERROR_MESSAGES['weakPassword']()).toBe(
+  it('should return passwordCheck error message', () => {
+    expect(ERROR_MESSAGES['passwordCheck']()).toBe(
       'Password does not meet strength requirements'
     );
   });
@@ -66,8 +70,8 @@ describe('ERROR_MESSAGES', () => {
     );
   });
 
-  it('should return invalidDateRange error message', () => {
-    expect(ERROR_MESSAGES['invalidDateRange']()).toBe(
+  it('should return dateRange error message', () => {
+    expect(ERROR_MESSAGES['dateRange']()).toBe(
       'End date must be after start date'
     );
   });
