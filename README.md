@@ -10,7 +10,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## USERNAME ##
 
-## HTML Example
 <input type="text" formControlName="username" phoneNumber/>
 
 ## Error 
@@ -20,7 +19,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## PASSWORD ##
 
-## HTML Example
 <input
   type="password"
   formControlName="password"
@@ -36,8 +34,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## REQUIRED TRIMMED  ##
 
-
-## HTML Example
 <input
   type="text"
   formControlName="name"
@@ -52,7 +48,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## ALPHA ONLY ##
 
-## HTML Example
 <input
   type="text"
   formControlName="firstName"
@@ -66,8 +61,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## ALPHA NUMERIC ##
 
-
-## HTML Example
 <input
   type="text"
   formControlName="username"
@@ -82,7 +75,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## EMAIL CHECK ##
 
-## HTML Example
 <input
   type="email"
   formControlName="email"
@@ -98,7 +90,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 ## UPPERCASE ##
 
 
-## HTML Example
 <input
   type="password"
   formControlName="password"
@@ -113,7 +104,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## LOWERCASE ##
 
-## HTML Example
 <input
   type="password"
   formControlName="password"
@@ -128,7 +118,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## SPECIAL CHARACTER ##
 
-## HTML Example
 <input
   type="password"
   formControlName="password"
@@ -142,7 +131,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## MAX DIGIT ##
 
-## HTML Example
 <input
   type="text"
   formControlName="pin"
@@ -156,7 +144,6 @@ import { FormError } from '@aroobajaved/shared-ui';
  
 ## DECIMAL LIMIT ##
 
-## HTML Example
 <input
   type="text"
   formControlName="price"
@@ -170,7 +157,6 @@ import { FormError } from '@aroobajaved/shared-ui';
 
 ## DATE RANGE ##
 
-## HTML Example
 <input
   type="date"
   formControlName="startDate"
