@@ -1,4 +1,4 @@
-export const ERRORMESSAGES: Record<string, (e?: any) => string> = {
+export const ERROR_MESSAGES: Record<string, (e?: any) => string> = {
   required: () => 'This field is required',
   requiredTrimmed: () => 'This field cannot be empty',
   email: () => 'Invalid email address',
