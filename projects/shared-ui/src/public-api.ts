@@ -16,4 +16,6 @@ export * from './lib/validations/contains-lowercase/contains-lowercase';
 export * from './lib/validations/contains-special-character/contains-special-character';
 export * from './lib/validations/confirm-password/confirm-password';
 export * from './lib/validations/date-range/date-range';
+export * from './lib/core/error-message';
+export * from './lib/core/form-error/form-error'
 

@@ -12,6 +12,7 @@ import { ContainsLowercase } from './validations/contains-lowercase/contains-low
 import { ContainsSpecialCharacter } from './validations/contains-special-character/contains-special-character';
 import { ConfirmPassword } from './validations/confirm-password/confirm-password';
 import { DateRange } from './validations/date-range/date-range';
+import { FormError } from './core/form-error/form-error';
 
 
 
@@ -29,6 +30,8 @@ export const SharedUiValidators = [
   ContainsSpecialCharacter,
   ConfirmPassword,
   DateRange,
+  FormError,
+
 ] as const; 
 
 @Component({
