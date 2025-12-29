@@ -16,7 +16,6 @@ export const ERROR_MESSAGES: Record<string, (e?: any) => string> = {
   containsSpecialChar: () => 'At least one special character is required',
 
   passwordCheck: () => 'Password does not meet strength requirements',
-  passwordMismatch: () => 'Passwords do not match',
 
   dateRange: () => 'End date must be after start date'
 };

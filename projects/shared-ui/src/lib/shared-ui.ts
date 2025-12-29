@@ -10,7 +10,6 @@ import { PasswordCheck } from './validations/password-check/password-check';
 import { ContainsUppercase } from './validations/contains-uppercase/contains-uppercase';
 import { ContainsLowercase } from './validations/contains-lowercase/contains-lowercase';
 import { ContainsSpecialCharacter } from './validations/contains-special-character/contains-special-character';
-import { ConfirmPassword } from './validations/confirm-password/confirm-password';
 import { DateRange } from './validations/date-range/date-range';
 import { FormError } from './core/form-error/form-error';
 
@@ -29,7 +28,6 @@ export const SharedUiValidators = [
   ContainsUppercase,
   ContainsLowercase,
   ContainsSpecialCharacter,
-  ConfirmPassword,
   DateRange,
 
 ] as const; 

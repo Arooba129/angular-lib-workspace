@@ -64,12 +64,6 @@ describe('ERROR_MESSAGES', () => {
     );
   });
 
-  it('should return passwordMismatch error message', () => {
-    expect(ERROR_MESSAGES['passwordMismatch']()).toBe(
-      'Passwords do not match'
-    );
-  });
-
   it('should return dateRange error message', () => {
     expect(ERROR_MESSAGES['dateRange']()).toBe(
       'End date must be after start date'
