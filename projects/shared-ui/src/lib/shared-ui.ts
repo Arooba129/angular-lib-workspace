@@ -16,6 +16,7 @@ import { FormError } from './core/form-error/form-error';
 
 
 
+
 export const SharedUiValidators = [
   RequiredTrimmed,
   AlphaOnly,
@@ -33,10 +34,6 @@ export const SharedUiValidators = [
 
 ] as const; 
 
-export const FormErrors = [
-  FormError
-
-] as const;
 
 @Component({
   selector: 'lib-shared-ui',

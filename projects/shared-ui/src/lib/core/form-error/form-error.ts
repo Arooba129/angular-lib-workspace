@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { ERROR_MESSAGES } from '../error-message';
+import { ERROR_MESSAGES } from '../error-message/error-message';
 import { CommonModule } from '@angular/common';
 
 @Component({
