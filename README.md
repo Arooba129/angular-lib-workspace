@@ -11,11 +11,7 @@ import { FormError } from '@aroobajaved/shared-ui';
 ## USERNAME ##
 
 ## HTML Example
-<input
-  type="text"
-  formControlName="username"
-  phoneNumber
-/>
+<input type="text" formControlName="username" phoneNumber/>
 
 ## Error 
 <lib-form-error
