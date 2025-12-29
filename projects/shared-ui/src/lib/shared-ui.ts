@@ -30,9 +30,13 @@ export const SharedUiValidators = [
   ContainsSpecialCharacter,
   ConfirmPassword,
   DateRange,
-  FormError,
 
 ] as const; 
+
+export const FormErrors = [
+  FormError
+
+] as const;
 
 @Component({
   selector: 'lib-shared-ui',
