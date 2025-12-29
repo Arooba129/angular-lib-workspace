@@ -8,22 +8,23 @@ import { SharedUiValidators } from '@aroobajaved/shared-ui';
 
 import { FormError } from '@aroobajaved/shared-ui';
 
+## USERNAME ##
+
 ## HTML Example
-
-## username
-
 <input
   type="text"
   formControlName="username"
   phoneNumber
 />
 
+## Error 
 <lib-form-error
 [control]="loginForm.get('username')">
 </lib-form-error>
 
-## password
+## PASSWORD ##
 
+## HTML Example
 <input
   type="password"
   formControlName="password"
@@ -31,13 +32,16 @@ import { FormError } from '@aroobajaved/shared-ui';
   containsUppercase
 />
 
+## Error 
 <lib-form-error
 [control]="registerForm.get('password')">
 </lib-form-error>
 
 
-## requiredTrimmed
+## REQUIRED TRIMMED  ##
 
+
+## HTML Example
 <input
   type="text"
   formControlName="name"
@@ -45,122 +49,143 @@ import { FormError } from '@aroobajaved/shared-ui';
   requiredTrimmed
 />
 
+## Error 
 <lib-form-error
 [control]="form.get('name')">
 </lib-form-error>
 
-## alphaOnly
+## ALPHA ONLY ##
 
+## HTML Example
 <input
   type="text"
   formControlName="firstName"
   alphaOnly
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('firstName')">
 </lib-form-error>
 
-## alphaNumeric
+## ALPHA NUMERIC ##
 
+
+## HTML Example
 <input
   type="text"
   formControlName="username"
   alphaNumeric
 />
 
+
+## Error 
 <lib-form-error
   [control]="form.get('username')">
 </lib-form-error>
 
-## emailCheck
+## EMAIL CHECK ##
 
+## HTML Example
 <input
   type="email"
   formControlName="email"
   emailCheck
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('email')">
 </lib-form-error>
 
 
-## uppercase
+## UPPERCASE ##
 
+
+## HTML Example
 <input
   type="password"
   formControlName="password"
   containsUppercase
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('password')">
 </lib-form-error>
 
 
-## lowercase
+## LOWERCASE ##
 
+## HTML Example
 <input
   type="password"
   formControlName="password"
   containsLowercase
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('password')">
 </lib-form-error>
 
 
-## specialCharacter
+## SPECIAL CHARACTER ##
 
+## HTML Example
 <input
   type="password"
   formControlName="password"
   containsSpecialChar
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('password')">
 </lib-form-error>
 
-## maxDigit
+## MAX DIGIT ##
 
+## HTML Example
 <input
   type="text"
   formControlName="pin"
   maxDigits="5"
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('pin')">
 </lib-form-error>
+ 
+## DECIMAL LIMIT ##
 
-## decimal limit
-
+## HTML Example
 <input
   type="text"
   formControlName="price"
   decimalLimit="2"
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('price')">
 </lib-form-error>
 
-## dateRange
+## DATE RANGE ##
 
+## HTML Example
 <input
   type="date"
   formControlName="startDate"
 />
-
 <input
   type="date"
   formControlName="endDate"
   dateRange
 />
 
+## Error 
 <lib-form-error
   [control]="form.get('endDate')">
 </lib-form-error
