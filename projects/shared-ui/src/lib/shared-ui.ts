@@ -5,7 +5,6 @@ import { AlphaNumeric } from './validations/alpha-numeric/alpha-numeric';
 import { MaxDigits } from './validations/max-digits/max-digits';
 import { DecimalLimit } from './validations/decimal-limit/decimal-limit';
 import { EmailCheck } from './validations/email-check/email-check';
-import { PhoneNumber } from './validations/phone-number/phone-number';
 import { PasswordCheck } from './validations/password-check/password-check';
 import { ContainsUppercase } from './validations/contains-uppercase/contains-uppercase';
 import { ContainsLowercase } from './validations/contains-lowercase/contains-lowercase';
@@ -24,7 +23,6 @@ export const SharedUiValidators = [
   MaxDigits,
   DecimalLimit,
   EmailCheck,
-  PhoneNumber,
   PasswordCheck,
   ContainsUppercase,
   ContainsLowercase,
