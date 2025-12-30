@@ -9,19 +9,25 @@ describe('CommaFormat Directive', () => {
     directive = new CommaFormat({ nativeElement: input } as any);
   });
 
-  it('formats integer with commas up to 10 digits', () => {
-    input.value = '1234567890';
+  it('formats integer with commas', () => {
+    input.value = '1234567';
     directive.onInput();
-    expect(input.value).toBe('1,234,567,890');
+    expect(input.value).toBe('1,234,567');
   });
 
-  it('does not allow more than 10 integer digits', () => {
+  it('limits integer digits to 10', () => {
     input.value = '1234567890123';
     directive.onInput();
     expect(input.value).toBe('1,234,567,890');
   });
 
-  it('allows decimal after 10 integer digits', () => {
+  it('allows typing decimal point', () => {
+    input.value = '1234.';
+    directive.onInput();
+    expect(input.value).toBe('1,234.');
+  });
+
+  it('allows decimal digits after integer limit', () => {
     input.value = '1234567890.1';
     directive.onInput();
     expect(input.value).toBe('1,234,567,890.1');
@@ -33,16 +39,16 @@ describe('CommaFormat Directive', () => {
     expect(input.value).toBe('1,234,567,890.12');
   });
 
-  it('allows integer with two decimal digits', () => {
+  it('formats normal decimal numbers correctly', () => {
     input.value = '1234.56';
     directive.onInput();
     expect(input.value).toBe('1,234.56');
   });
 
   it('removes non-numeric characters', () => {
-    input.value = '12a3b4c5d6';
+    input.value = '12a3b4c5';
     directive.onInput();
-    expect(input.value).toBe('123,456');
+    expect(input.value).toBe('12,345');
   });
 
   it('handles decimal without integer part', () => {

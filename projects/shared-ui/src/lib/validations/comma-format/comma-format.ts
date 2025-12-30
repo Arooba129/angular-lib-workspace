@@ -13,14 +13,24 @@ export class CommaFormat {
   @HostListener('input')
   onInput(): void {
     const input = this.el.nativeElement;
-    let value = input.value;
+    const original = input.value;
 
-    value = value.replace(/,/g, '');
+    let value = original.replace(/,/g, '');
     value = value.replace(/[^0-9.]/g, '');
 
-    const parts = value.split('.');
-    let integerPart = parts[0] ?? '';
-    let decimalPart = parts[1] ?? '';
+    const dotIndex = value.indexOf('.');
+
+    let integerPart = '';
+    let decimalPart = '';
+    let hasDot = false;
+
+    if (dotIndex >= 0) {
+      hasDot = true;
+      integerPart = value.slice(0, dotIndex);
+      decimalPart = value.slice(dotIndex + 1);
+    } else {
+      integerPart = value;
+    }
 
     integerPart = integerPart.slice(0, this.MAX_INTEGER_DIGITS);
     decimalPart = decimalPart.slice(0, this.DECIMAL_DIGITS);
@@ -28,12 +38,14 @@ export class CommaFormat {
     const formattedInteger =
       integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
-    const formattedValue =
-      decimalPart.length > 0
-        ? `${formattedInteger}.${decimalPart}`
-        : formattedInteger;
+    let formattedValue = formattedInteger;
 
-    if (input.value !== formattedValue) {
+    if (hasDot) {
+      formattedValue += '.';
+      formattedValue += decimalPart;
+    }
+
+    if (formattedValue !== original) {
       input.value = formattedValue;
       input.dispatchEvent(new Event('input', { bubbles: true }));
     }
