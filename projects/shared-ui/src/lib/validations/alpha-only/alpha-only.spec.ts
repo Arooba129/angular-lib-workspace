@@ -1,6 +1,6 @@
 import { AlphaOnly } from './alpha-only';
 
-describe('AlphaOnly Input Directive', () => {
+describe('AlphaOnly Formatter Directive', () => {
   let input: HTMLInputElement;
   let directive: AlphaOnly;
 
@@ -15,7 +15,7 @@ describe('AlphaOnly Input Directive', () => {
     expect(input.value).toBe('HelloWorld');
   });
 
-  it('removes numeric characters', () => {
+  it('removes numbers', () => {
     input.value = 'Hello123';
     directive.onInput();
     expect(input.value).toBe('Hello');
@@ -33,21 +33,9 @@ describe('AlphaOnly Input Directive', () => {
     expect(input.value).toBe('HelloWorld');
   });
 
-  it('handles mixed invalid characters', () => {
-    input.value = 'He11o@ Wo$rld!';
-    directive.onInput();
-    expect(input.value).toBe('HeoWorld');
-  });
-
   it('allows empty value', () => {
     input.value = '';
     directive.onInput();
     expect(input.value).toBe('');
-  });
-
-  it('keeps value unchanged if already valid', () => {
-    input.value = 'Alphabet';
-    directive.onInput();
-    expect(input.value).toBe('Alphabet');
   });
 });

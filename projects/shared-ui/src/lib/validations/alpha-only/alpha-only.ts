@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[alphaOnlyInput]',
+  selector: '[alphaOnly]',
   standalone: true,
 })
 export class AlphaOnly {
