@@ -1,36 +1,20 @@
-import { Directive, forwardRef } from '@angular/core';
-import {
-  AbstractControl,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator,
-} from '@angular/forms';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[containsLowercase]',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => ContainsLowercase),
-      multi: true,
-    },
-  ],
 })
-export class ContainsLowercase implements Validator {
-  private readonly pattern = /[a-z]/;
+export class ContainsLowercase {
+  constructor(private el: ElementRef<HTMLInputElement>) {}
 
-  validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
+  @HostListener('input')
+  onInput(): void {
+    const input = this.el.nativeElement;
+    const cleaned = input.value.replace(/[^A-Za-z]/g, '');
 
-    if (value === null || value === undefined || value === '') {
-      return null;
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     }
-
-    if (typeof value !== 'string') {
-      return null;
-    }
-
-    return this.pattern.test(value) ? null : { containsLowercase: true };
   }
 }

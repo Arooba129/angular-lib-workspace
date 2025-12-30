@@ -1,36 +1,20 @@
-import { Directive, forwardRef } from '@angular/core';
-import {
-  AbstractControl,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator,
-} from '@angular/forms';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[alphaNumeric]',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => AlphaNumeric),
-      multi: true,
-    },
-  ],
 })
-export class AlphaNumeric implements Validator {
-  private readonly pattern = /^[A-Za-z0-9]+$/;
+export class AlphaNumeric {
+  constructor(private el: ElementRef<HTMLInputElement>) {}
 
-  validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
+  @HostListener('input')
+  onInput(): void {
+    const input = this.el.nativeElement;
+    const cleaned = input.value.replace(/[^A-Za-z0-9]/g, '');
 
-    if (value === null || value === undefined || value === '') {
-      return null;
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     }
-
-    if (typeof value !== 'string') {
-      return null;
-    }
-
-    return this.pattern.test(value) ? null : { alphaNumeric: true };
   }
 }

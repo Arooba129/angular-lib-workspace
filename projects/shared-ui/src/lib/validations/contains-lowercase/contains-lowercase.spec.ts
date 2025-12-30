@@ -1,30 +1,47 @@
 import { ContainsLowercase } from './contains-lowercase';
-import { AbstractControl } from '@angular/forms';
 
-describe('ContainsLowercase Validator', () => {
-  const validator = new ContainsLowercase();
+describe('ContainsLowercase Formatter Directive', () => {
+  let input: HTMLInputElement;
+  let directive: ContainsLowercase;
 
-  function mockControl(value: any): AbstractControl {
-    return { value } as AbstractControl;
-  }
-
-  it('should invalidate when no lowercase letter is present', () => {
-    const result = validator.validate(mockControl('PASSWORD123'));
-    expect(result).toEqual({ containsLowercase: true });
+  beforeEach(() => {
+    input = document.createElement('input');
+    directive = new ContainsLowercase({ nativeElement: input } as any);
   });
 
-  it('should allow value with lowercase letter', () => {
-    const result = validator.validate(mockControl('Password123'));
-    expect(result).toBeNull();
+  it('allows lowercase letters', () => {
+    input.value = 'abc';
+    directive.onInput();
+    expect(input.value).toBe('abc');
   });
 
-  it('should allow lowercase-only value', () => {
-    const result = validator.validate(mockControl('hello'));
-    expect(result).toBeNull();
+  it('allows uppercase letters', () => {
+    input.value = 'ABC';
+    directive.onInput();
+    expect(input.value).toBe('ABC');
   });
 
-  it('should ignore non-string values', () => {
-    const result = validator.validate(mockControl(12345));
-    expect(result).toBeNull();
+  it('removes numbers', () => {
+    input.value = 'abc123';
+    directive.onInput();
+    expect(input.value).toBe('abc');
+  });
+
+  it('removes special characters', () => {
+    input.value = 'ab@#c';
+    directive.onInput();
+    expect(input.value).toBe('abc');
+  });
+
+  it('allows mixed case letters', () => {
+    input.value = 'AbCde';
+    directive.onInput();
+    expect(input.value).toBe('AbCde');
+  });
+
+  it('allows empty value', () => {
+    input.value = '';
+    directive.onInput();
+    expect(input.value).toBe('');
   });
 });

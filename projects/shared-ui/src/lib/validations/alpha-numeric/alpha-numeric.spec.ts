@@ -1,40 +1,47 @@
 import { AlphaNumeric } from './alpha-numeric';
-import { AbstractControl } from '@angular/forms';
 
-describe('AlphaNumeric Validator', () => {
-  const validator = new AlphaNumeric();
+describe('AlphaNumeric Formatter Directive', () => {
+  let input: HTMLInputElement;
+  let directive: AlphaNumeric;
 
-  function mockControl(value: any): AbstractControl {
-    return { value } as AbstractControl;
-  }
-
-  it('should allow letters only', () => {
-    const result = validator.validate(mockControl('Hello'));
-    expect(result).toBeNull();
+  beforeEach(() => {
+    input = document.createElement('input');
+    directive = new AlphaNumeric({ nativeElement: input } as any);
   });
 
-  it('should allow numbers only', () => {
-    const result = validator.validate(mockControl('12345'));
-    expect(result).toBeNull();
+  it('allows alphanumeric characters', () => {
+    input.value = 'User123';
+    directive.onInput();
+    expect(input.value).toBe('User123');
   });
 
-  it('should allow alphanumeric values', () => {
-    const result = validator.validate(mockControl('User123'));
-    expect(result).toBeNull();
+  it('removes spaces', () => {
+    input.value = 'User 123';
+    directive.onInput();
+    expect(input.value).toBe('User123');
   });
 
-  it('should invalidate spaces', () => {
-    const result = validator.validate(mockControl('User 123'));
-    expect(result).toEqual({ alphaNumeric: true });
+  it('removes special characters', () => {
+    input.value = 'User@123!';
+    directive.onInput();
+    expect(input.value).toBe('User123');
   });
 
-  it('should invalidate special characters', () => {
-    const result = validator.validate(mockControl('User@123'));
-    expect(result).toEqual({ alphaNumeric: true });
+  it('allows numbers only', () => {
+    input.value = '12345';
+    directive.onInput();
+    expect(input.value).toBe('12345');
   });
 
-  it('should ignore non-string values', () => {
-    const result = validator.validate(mockControl(456));
-    expect(result).toBeNull();
+  it('allows letters only', () => {
+    input.value = 'Username';
+    directive.onInput();
+    expect(input.value).toBe('Username');
+  });
+
+  it('allows empty value', () => {
+    input.value = '';
+    directive.onInput();
+    expect(input.value).toBe('');
   });
 });
