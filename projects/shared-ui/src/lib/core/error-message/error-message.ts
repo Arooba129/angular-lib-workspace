@@ -2,7 +2,7 @@
 export const ERROR_MESSAGES: Record<string, (e?: any) => string> = {
   required: () => 'This field is required',
   requiredTrimmed: () => 'This field cannot be empty',
-  emailCheck: () => 'Invalid email address',
+  email: () => 'Invalid email address',
   phoneNumber: () => 'Invalid phone number',
 
   alphaOnly: () => 'Only alphabetic characters are allowed',
@@ -16,6 +16,6 @@ export const ERROR_MESSAGES: Record<string, (e?: any) => string> = {
   containsSpecialChar: () => 'At least one special character is required',
 
   passwordCheck: () => 'Password does not meet strength requirements',
-
+  passwordMismatch: () => 'Passwords do not match',
   dateRange: () => 'End date must be after start date'
 };

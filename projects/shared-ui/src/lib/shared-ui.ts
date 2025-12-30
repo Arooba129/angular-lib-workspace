@@ -12,6 +12,7 @@ import { ContainsLowercase } from './validations/contains-lowercase/contains-low
 import { ContainsSpecialCharacter } from './validations/contains-special-character/contains-special-character';
 import { DateRange } from './validations/date-range/date-range';
 import { FormError } from './core/form-error/form-error';
+import { CommaFormat } from './validations/comma-format/comma-format';
 
 
 
@@ -29,6 +30,7 @@ export const SharedUiValidators = [
   ContainsLowercase,
   ContainsSpecialCharacter,
   DateRange,
+  CommaFormat
 
 ] as const; 
 

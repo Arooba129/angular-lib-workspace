@@ -17,4 +17,5 @@ export * from './lib/validations/contains-special-character/contains-special-cha
 export * from './lib/validations/date-range/date-range';
 export * from './lib/core/error-message/error-message';
 export * from './lib/core/form-error/form-error'
+export * from './lib/validations/comma-format/comma-format';
 

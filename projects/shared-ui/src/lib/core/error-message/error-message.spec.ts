@@ -11,7 +11,7 @@ describe('ERROR_MESSAGES', () => {
   });
 
   it('should return emailCheck error message', () => {
-    expect(ERROR_MESSAGES['emailCheck']()).toBe('Invalid email address');
+    expect(ERROR_MESSAGES['email']()).toBe('Invalid email address');
   });
 
   it('should return phoneNumber error message', () => {
