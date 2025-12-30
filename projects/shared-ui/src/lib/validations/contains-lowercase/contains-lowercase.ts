@@ -1,5 +1,10 @@
-import { Directive } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { Directive, forwardRef } from '@angular/core';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 
 @Directive({
   selector: '[containsLowercase]',
@@ -7,7 +12,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: ContainsLowercase,
+      useExisting: forwardRef(() => ContainsLowercase),
       multi: true,
     },
   ],
@@ -18,7 +23,7 @@ export class ContainsLowercase implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
 
-    if (value === null || value === undefined) {
+    if (value === null || value === undefined || value === '') {
       return null;
     }
 
@@ -26,10 +31,6 @@ export class ContainsLowercase implements Validator {
       return null;
     }
 
-    if (!this.pattern.test(value)) {
-      return { containsLowercase: true };
-    }
-
-    return null;
+    return this.pattern.test(value) ? null : { containsLowercase: true };
   }
 }

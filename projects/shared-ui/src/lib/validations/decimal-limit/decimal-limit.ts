@@ -1,5 +1,10 @@
-import { Directive, ElementRef, HostListener, Input, numberAttribute } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { Directive, Input, forwardRef, numberAttribute } from '@angular/core';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+} from '@angular/forms';
 
 @Directive({
   selector: '[decimalDigits]',
@@ -7,53 +12,24 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
   providers: [
     {
       provide: NG_VALIDATORS,
-      useExisting: DecimalLimit,
+      useExisting: forwardRef(() => DecimalLimit),
       multi: true,
     },
   ],
 })
 export class DecimalLimit implements Validator {
   @Input({ transform: numberAttribute })
-  decimalDigits: string | number = 0;
-
-  constructor(private el: ElementRef<HTMLInputElement>) {}
-
-  @HostListener('input')
-  onInput(): void {
-    let value = this.el.nativeElement.value;
-    value = value.replace(/[^0-9.]/g, '');
-    const parts = value.split('.');
-    if (parts.length > 2) {
-      value = parts[0] + '.' + parts.slice(1).join('');
-    }
-
-    const limit = Number(this.decimalDigits);
-
-    if (limit > 0 && value.includes('.')) {
-      const [int, dec] = value.split('.');
-      value = int + '.' + dec.slice(0, limit);
-    }
-
-    this.el.nativeElement.value = value;
-  }
+  decimalDigits = 0;
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = String(control.value ?? '');
-    const limit = Number(this.decimalDigits);
+    const value = control.value;
 
-    if (!value || limit <= 0) return null;
+    if (!value || this.decimalDigits <= 0) return null;
 
-    if (!value.includes('.')) return null;
+    const [, decimal] = String(value).split('.');
 
-    const decimalPart = value.split('.')[1] ?? '';
-
-    if (decimalPart.length > limit) {
-      return {
-        decimalDigits: {
-          required: limit,
-          actual: decimalPart.length,
-        },
-      };
+    if (decimal && decimal.length > this.decimalDigits) {
+      return { decimalDigits: true };
     }
 
     return null;

@@ -1,29 +1,46 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[CommaFormat]',
   standalone: true,
 })
 export class CommaFormat {
-  @Input() allowDecimal = false;
+  private readonly MAX_DIGITS = 10;
+  private readonly DECIMAL_DIGITS = 2;
 
   constructor(private el: ElementRef<HTMLInputElement>) {}
 
   @HostListener('input')
   onInput(): void {
-    let value = this.el.nativeElement.value;
+    const input = this.el.nativeElement;
+    let value = input.value;
 
     value = value.replace(/,/g, '');
-
-    const regex = this.allowDecimal ? /[^0-9.]/g : /[^0-9]/g;
-    value = value.replace(regex, '');
+    value = value.replace(/[^0-9.]/g, '');
 
     const parts = value.split('.');
     let integerPart = parts[0];
-    const decimalPart = parts[1];
+    let decimalPart = parts[1] ?? '';
 
-    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    this.el.nativeElement.value =
-      decimalPart !== undefined ? `${integerPart}.${decimalPart}` : integerPart;
+    decimalPart = decimalPart.slice(0, this.DECIMAL_DIGITS);
+
+    const totalDigits = (integerPart + decimalPart).length;
+    if (totalDigits > this.MAX_DIGITS) {
+      const allowed = this.MAX_DIGITS - decimalPart.length;
+      integerPart = integerPart.slice(0, allowed);
+    }
+
+    const formattedInteger =
+      integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    const formattedValue =
+      decimalPart.length > 0
+        ? `${formattedInteger}.${decimalPart}`
+        : formattedInteger;
+
+    if (input.value !== formattedValue) {
+      input.value = formattedValue;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    }
   }
 }
