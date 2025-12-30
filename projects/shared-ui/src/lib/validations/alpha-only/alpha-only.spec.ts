@@ -1,35 +1,53 @@
 import { AlphaOnly } from './alpha-only';
-import { AbstractControl } from '@angular/forms';
 
-describe('AlphaOnly Validator', () => {
-  const validator = new AlphaOnly();
+describe('AlphaOnly Input Directive', () => {
+  let input: HTMLInputElement;
+  let directive: AlphaOnly;
 
-  function mockControl(value: any): AbstractControl {
-    return { value } as AbstractControl;
-  }
-
-  it('should allow alphabetic characters only', () => {
-    const result = validator.validate(mockControl('Hello'));
-    expect(result).toBeNull();
+  beforeEach(() => {
+    input = document.createElement('input');
+    directive = new AlphaOnly({ nativeElement: input } as any);
   });
 
-  it('should invalidate numbers', () => {
-    const result = validator.validate(mockControl('Hello123'));
-    expect(result).toEqual({ alphaOnly: true });
+  it('allows alphabetic characters', () => {
+    input.value = 'HelloWorld';
+    directive.onInput();
+    expect(input.value).toBe('HelloWorld');
   });
 
-  it('should invalidate spaces', () => {
-    const result = validator.validate(mockControl('Hello World'));
-    expect(result).toEqual({ alphaOnly: true });
+  it('removes numeric characters', () => {
+    input.value = 'Hello123';
+    directive.onInput();
+    expect(input.value).toBe('Hello');
   });
 
-  it('should invalidate special characters', () => {
-    const result = validator.validate(mockControl('Hello@'));
-    expect(result).toEqual({ alphaOnly: true });
+  it('removes special characters', () => {
+    input.value = 'Hello@#';
+    directive.onInput();
+    expect(input.value).toBe('Hello');
   });
 
-  it('should ignore non-string values', () => {
-    const result = validator.validate(mockControl(123));
-    expect(result).toBeNull();
+  it('removes spaces', () => {
+    input.value = 'Hello World';
+    directive.onInput();
+    expect(input.value).toBe('HelloWorld');
+  });
+
+  it('handles mixed invalid characters', () => {
+    input.value = 'He11o@ Wo$rld!';
+    directive.onInput();
+    expect(input.value).toBe('HeoWorld');
+  });
+
+  it('allows empty value', () => {
+    input.value = '';
+    directive.onInput();
+    expect(input.value).toBe('');
+  });
+
+  it('keeps value unchanged if already valid', () => {
+    input.value = 'Alphabet';
+    directive.onInput();
+    expect(input.value).toBe('Alphabet');
   });
 });

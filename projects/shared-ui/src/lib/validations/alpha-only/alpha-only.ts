@@ -1,36 +1,20 @@
-import { Directive, forwardRef } from '@angular/core';
-import {
-  AbstractControl,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator,
-} from '@angular/forms';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[alphaOnly]',
+  selector: '[alphaOnlyInput]',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => AlphaOnly),
-      multi: true,
-    },
-  ],
 })
-export class AlphaOnly implements Validator {
-  private readonly pattern = /^[A-Za-z]+$/;
+export class AlphaOnly {
+  constructor(private el: ElementRef<HTMLInputElement>) {}
 
-  validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
+  @HostListener('input')
+  onInput(): void {
+    const input = this.el.nativeElement;
+    const cleaned = input.value.replace(/[^A-Za-z]/g, '');
 
-    if (value === null || value === undefined || value === '') {
-      return null;
+    if (input.value !== cleaned) {
+      input.value = cleaned;
+      input.dispatchEvent(new Event('input', { bubbles: true }));
     }
-
-    if (typeof value !== 'string') {
-      return null;
-    }
-
-    return this.pattern.test(value) ? null : { alphaOnly: true };
   }
 }
