@@ -1,63 +1,194 @@
-# SharedUi
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
+# Shared UI Validators
 
-## Code scaffolding
+A collection of reusable Angular standalone validators and UI helpers** designed to work seamlessly with Reactive Forms.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
 ```bash
-ng generate --help
-```
+npm install @aroobajaved/shared-ui
 
-## Building
 
-To build the library, run:
+## Import required items in app.component.ts
 
-```bash
-ng build shared-ui
-```
+import { SharedUiValidators } from '@aroobajaved/shared-ui';
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Import required items where error is required
 
-### Publishing the Library
+import { FormError } from '@aroobajaved/shared-ui';
 
-Once the project is built, you can publish your library by following these steps:
+## USERNAME ##
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/shared-ui
-   ```
+<input type="text" formControlName="username" phoneNumber/>
 
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
+## Error 
+<lib-form-error
+[control]="loginForm.get('username')">
+</lib-form-error>
 
-## Running unit tests
+## PASSWORD ##
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+<input
+  type="password"
+  formControlName="password"
+  passwordCheck
+  containsUppercase
+/>
 
-```bash
-ng test
-```
+## Error 
+<lib-form-error
+[control]="registerForm.get('password')">
+</lib-form-error>
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+## REQUIRED TRIMMED  ##
 
-```bash
-ng e2e
-```
+<input
+  type="text"
+  formControlName="name"
+  required
+  requiredTrimmed
+/>
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Error 
+<lib-form-error
+[control]="form.get('name')">
+</lib-form-error>
 
-## Additional Resources
+## ALPHA ONLY ##
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<input
+  type="text"
+  formControlName="firstName"
+  alphaOnly
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('firstName')">
+</lib-form-error>
+
+## ALPHA NUMERIC ##
+
+<input
+  type="text"
+  formControlName="username"
+  alphaNumeric
+/>
+
+
+## Error 
+<lib-form-error
+  [control]="form.get('username')">
+</lib-form-error>
+
+## EMAIL CHECK ##
+
+<input
+  type="email"
+  formControlName="email"
+  emailCheck
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('email')">
+</lib-form-error>
+
+
+## UPPERCASE ##
+
+
+<input
+  type="password"
+  formControlName="password"
+  containsUppercase
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('password')">
+</lib-form-error>
+
+
+## LOWERCASE ##
+
+<input
+  type="password"
+  formControlName="password"
+  containsLowercase
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('password')">
+</lib-form-error>
+
+
+## SPECIAL CHARACTER ##
+
+<input
+  type="password"
+  formControlName="password"
+  containsSpecialChar
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('password')">
+</lib-form-error>
+
+## MAX DIGIT ##
+
+<input
+  type="text"
+  formControlName="pin"
+  maxDigits="5"
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('pin')">
+</lib-form-error>
+ 
+## DECIMAL LIMIT ##
+
+<input
+  type="text"
+  formControlName="price"
+  decimalLimit="2"
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('price')">
+</lib-form-error>
+
+## DATE RANGE ##
+
+<input
+  type="date"
+  formControlName="startDate"
+/>
+<input
+  type="date"
+  formControlName="endDate"
+  dateRange
+/>
+
+## Error 
+<lib-form-error
+  [control]="form.get('endDate')">
+</lib-form-error
+
+
+## Comma Format ##
+<input
+  type="text"
+  formControlName="amount"
+  CommaFormat
+/>
+
+---

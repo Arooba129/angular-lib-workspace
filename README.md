@@ -1,7 +1,3 @@
-npm install @aroobajaved/shared-ui
-
-
-
 
 # Shared UI Validators
 
@@ -186,5 +182,13 @@ import { FormError } from '@aroobajaved/shared-ui';
 <lib-form-error
   [control]="form.get('endDate')">
 </lib-form-error
+
+## Comma Format ##
+<input
+  type="text"
+  formControlName="amount"
+  CommaFormat
+/>
+
 
 ---
