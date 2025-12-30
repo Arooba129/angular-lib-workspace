@@ -1,5 +1,20 @@
 npm install @aroobajaved/shared-ui
 
+
+
+
+# Shared UI Validators
+
+A collection of reusable Angular standalone validators and UI helpers** designed to work seamlessly with Reactive Forms.
+
+---
+
+## Installation
+
+```bash
+npm install @aroobajaved/shared-ui
+
+
 ## Import required items in app.component.ts
 
 import { SharedUiValidators } from '@aroobajaved/shared-ui';
@@ -172,4 +187,4 @@ import { FormError } from '@aroobajaved/shared-ui';
   [control]="form.get('endDate')">
 </lib-form-error
 
-
+---

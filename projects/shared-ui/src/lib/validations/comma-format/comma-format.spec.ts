@@ -57,6 +57,12 @@ describe('CommaFormat Directive', () => {
     expect(input.value).toBe('.12');
   });
 
+  it('allows only one decimal point', () => {
+    input.value = '12.3.4.5';
+    directive.onInput();
+    expect(input.value).toBe('12.34');
+  });
+
   it('keeps already formatted value unchanged', () => {
     input.value = '1,234,567,890.12';
     directive.onInput();

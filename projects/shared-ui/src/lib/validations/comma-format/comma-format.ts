@@ -18,16 +18,20 @@ export class CommaFormat {
     let value = original.replace(/,/g, '');
     value = value.replace(/[^0-9.]/g, '');
 
-    const dotIndex = value.indexOf('.');
+    const firstDotIndex = value.indexOf('.');
+    if (firstDotIndex !== -1) {
+      value =
+        value.slice(0, firstDotIndex + 1) +
+        value.slice(firstDotIndex + 1).replace(/\./g, '');
+    }
 
     let integerPart = '';
     let decimalPart = '';
-    let hasDot = false;
+    let hasDot = firstDotIndex !== -1;
 
-    if (dotIndex >= 0) {
-      hasDot = true;
-      integerPart = value.slice(0, dotIndex);
-      decimalPart = value.slice(dotIndex + 1);
+    if (hasDot) {
+      integerPart = value.slice(0, firstDotIndex);
+      decimalPart = value.slice(firstDotIndex + 1);
     } else {
       integerPart = value;
     }
