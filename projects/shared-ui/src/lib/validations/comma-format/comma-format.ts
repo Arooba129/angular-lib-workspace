@@ -5,7 +5,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   standalone: true,
 })
 export class CommaFormat {
-  private readonly MAX_DIGITS = 10;
+  private readonly MAX_INTEGER_DIGITS = 10;
   private readonly DECIMAL_DIGITS = 2;
 
   constructor(private el: ElementRef<HTMLInputElement>) {}
@@ -19,16 +19,11 @@ export class CommaFormat {
     value = value.replace(/[^0-9.]/g, '');
 
     const parts = value.split('.');
-    let integerPart = parts[0];
+    let integerPart = parts[0] ?? '';
     let decimalPart = parts[1] ?? '';
 
+    integerPart = integerPart.slice(0, this.MAX_INTEGER_DIGITS);
     decimalPart = decimalPart.slice(0, this.DECIMAL_DIGITS);
-
-    const totalDigits = (integerPart + decimalPart).length;
-    if (totalDigits > this.MAX_DIGITS) {
-      const allowed = this.MAX_DIGITS - decimalPart.length;
-      integerPart = integerPart.slice(0, allowed);
-    }
 
     const formattedInteger =
       integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');

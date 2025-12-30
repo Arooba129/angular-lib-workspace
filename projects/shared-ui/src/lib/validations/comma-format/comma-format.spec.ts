@@ -9,34 +9,40 @@ describe('CommaFormat Directive', () => {
     directive = new CommaFormat({ nativeElement: input } as any);
   });
 
-  it('formats integer value with commas', () => {
-    input.value = '1234567';
+  it('formats integer with commas up to 10 digits', () => {
+    input.value = '1234567890';
     directive.onInput();
-    expect(input.value).toBe('1,234,567');
+    expect(input.value).toBe('1,234,567,890');
   });
 
-  it('limits total digits to 10', () => {
+  it('does not allow more than 10 integer digits', () => {
     input.value = '1234567890123';
     directive.onInput();
     expect(input.value).toBe('1,234,567,890');
   });
 
-  it('allows up to 2 decimal digits', () => {
-    input.value = '1234567.89';
+  it('allows decimal after 10 integer digits', () => {
+    input.value = '1234567890.1';
     directive.onInput();
-    expect(input.value).toBe('1,234,567.89');
+    expect(input.value).toBe('1,234,567,890.1');
   });
 
-  it('trims decimal digits beyond 2', () => {
-    input.value = '1234.5678';
+  it('limits decimal digits to 2', () => {
+    input.value = '1234567890.1234';
+    directive.onInput();
+    expect(input.value).toBe('1,234,567,890.12');
+  });
+
+  it('allows integer with two decimal digits', () => {
+    input.value = '1234.56';
     directive.onInput();
     expect(input.value).toBe('1,234.56');
   });
 
   it('removes non-numeric characters', () => {
-    input.value = '12a3b4c5';
+    input.value = '12a3b4c5d6';
     directive.onInput();
-    expect(input.value).toBe('12,345');
+    expect(input.value).toBe('123,456');
   });
 
   it('handles decimal without integer part', () => {
@@ -45,9 +51,9 @@ describe('CommaFormat Directive', () => {
     expect(input.value).toBe('.12');
   });
 
-  it('keeps value unchanged if already formatted', () => {
-    input.value = '1,234.56';
+  it('keeps already formatted value unchanged', () => {
+    input.value = '1,234,567,890.12';
     directive.onInput();
-    expect(input.value).toBe('1,234.56');
+    expect(input.value).toBe('1,234,567,890.12');
   });
 });
